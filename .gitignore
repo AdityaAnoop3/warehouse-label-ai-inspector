@@ -172,3 +172,11 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Ignore large training artifacts
+datasets/
+runs/
+*.jpg
+*.png
+*.txt
+
