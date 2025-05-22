@@ -180,3 +180,8 @@ runs/
 *.png
 *.txt
 
+# Next.js and frontend-specific
+frontend/.next/
+frontend/node_modules/
+frontend/.env.local
+frontend/package-lock.json
