@@ -1,14 +1,14 @@
-// frontend/components/ImageUpload.tsx
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { detectSymbols, Detection } from "../lib/api";
+import { detectFromEndpoint, Detection } from "../lib/api";
 
 export default function ImageUpload() {
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [detections, setDetections] = useState<Detection[]>([]);
   const [loading, setLoading] = useState(false);
+  const [mode, setMode] = useState<"symbol" | "barcode">("symbol");
   const imgRef = useRef<HTMLImageElement>(null);
 
   // Generate a preview when you pick a file
@@ -32,7 +32,7 @@ export default function ImageUpload() {
     if (!file) return;
     setLoading(true);
     try {
-      const results = await detectSymbols(file);
+      const results = await detectFromEndpoint(file, mode);
       setDetections(results);
     } catch (err) {
       console.error(err);
@@ -44,6 +44,29 @@ export default function ImageUpload() {
 
   return (
     <div className="space-y-4">
+      <div className="flex gap-4">
+        <label>
+          <input
+            type="radio"
+            name="mode"
+            value="symbol"
+            checked={mode === "symbol"}
+            onChange={() => setMode("symbol")}
+          />
+          <span className="ml-2">Symbol</span>
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="mode"
+            value="barcode"
+            checked={mode === "barcode"}
+            onChange={() => setMode("barcode")}
+          />
+          <span className="ml-2">Barcode</span>
+        </label>
+      </div>
+
       <input
         type="file"
         accept="image/*"

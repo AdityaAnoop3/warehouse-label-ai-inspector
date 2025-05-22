@@ -12,6 +12,5 @@ async def barcode_detection(file: UploadFile = File(...)):
 
 @router.post("/detect/symbol/")
 async def symbol_detection(file: UploadFile = File(...)):
-    contents = await file.read()
-    results = detect_symbols(contents)
+    results = detect_symbols(file)
     return {"result": results}
