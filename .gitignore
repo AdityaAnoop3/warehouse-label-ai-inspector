@@ -174,11 +174,12 @@ cython_debug/
 .pypirc
 
 # Ignore large training artifacts
-datasets/
+# Ignore synthetic data only (but allow icon assets and metadata)
+datasets/**/*.jpg
+datasets/**/*.png
+datasets/**/*.txt
+
 runs/
-*.jpg
-*.png
-*.txt
 
 # Next.js and frontend-specific
 frontend/.next/
